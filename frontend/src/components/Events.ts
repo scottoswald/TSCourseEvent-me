@@ -83,7 +83,7 @@ export const EventCard = (e: Event) => {
         <p>${Calendar} ${eventDate.toLocaleDateString()}</p>
         <p>Host: ${e.host?.name || `User ${e.host_id}`}</p>
 
-        ${e.description && `<p>${e.description}</p>`}
+        ${e.description ? `<p>${e.description}</p>` : ''}
     </main>
     <footer>
         <span>
