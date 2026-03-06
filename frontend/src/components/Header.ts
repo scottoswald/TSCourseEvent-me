@@ -1,4 +1,4 @@
-import { Theme as ThemeIcon } from './Icons';
+import { Theme as ThemeIcon } from './Icons.ts';
 
 const themeToggleId = 'theme';
 
@@ -25,6 +25,10 @@ const toggleDarkMode = () => {
 }
 export function setupThemeToggle() {
     const themeToggle = document.getElementById(themeToggleId);
+    if (!themeToggle) {
+        console.error('Missing Toggle!');
+        return;
+    }
     themeToggle.addEventListener('click', toggleDarkMode);
 
 }
