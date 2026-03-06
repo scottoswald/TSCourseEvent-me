@@ -2,18 +2,36 @@ import { Calendar } from './Icons.ts';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const loadEventsData = async () => {
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+interface Event {
+  id: number;
+  title: string;
+  description?: string;
+  date: Date;
+  host_id: number;
+  image_url?: string;
+  host?: User;
+  rsvps?: User[];
+}
+
+const loadEventsData = async (): Promise<Event[]> => {
   try {
     const response = await fetch(`${API_URL}/events`);
     return response.json();
   } catch (e) {
     console.error(e);
+    return [];
   }
 }
 
 
-export const EventModal = (event) => {
-  const formId = `rsvp-form-${event.ID}`;
+export const EventModal = (event: Event) => {
+  const formId = `rsvp-form-${event.id}`;
   const modalId = `modal-event-${event.id}`
   return `<dialog id="${modalId}">
       <article>
@@ -52,7 +70,7 @@ export const EventModal = (event) => {
     </dialog>`
 }
 
-export const EventCard = (e) => {
+export const EventCard = (e: Event) => {
   const eventDate = new Date(e.date);
   const isPast = eventDate < new Date();
   return `
@@ -83,7 +101,7 @@ export const EventCard = (e) => {
     `
 }
 
-export const EventsSection = (title, events) => {
+export const EventsSection = (title: string, events: Event[]) => {
   return `
   <section class='events'>
       <h2>${title} events </h2>
