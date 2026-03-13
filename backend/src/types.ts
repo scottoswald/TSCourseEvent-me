@@ -1,5 +1,7 @@
-interface Event {
-    id: number;
+export type Id = number;
+
+export interface Event {
+    id: Id;
     title: string;
     description?: string;
     date: Date;

@@ -1,22 +1,23 @@
 import db from '../db.ts';
 import { Router } from 'express';
 import { getUser } from './users.ts';
+import type { Event, Id } from '../types.ts';
 
 const router = Router();
 
-const joinHost = (event) => {
+const joinHost = (event: Event) => {
   const host = getUser(event.host_id);
   return { ...event, host };
 }
 
-const joinRSVPs = (event) => {
+const joinRSVPs = (event: Event) => {
   const { id } = event;
   const getRSVPs = db.prepare('SELECT * FROM rsvps WHERE event_id = @id');
   const rsvps = getRSVPs.all({ id });
   return { ...event, rsvps };
 }
 
-const getEvent = (eventId) => {
+const getEvent = (eventId: Id) => {
   const byId = db.prepare('SELECT * FROM events WHERE id = @eventId');
   const event = byId.get({ eventId });
   return joinHost(event);
