@@ -11,13 +11,13 @@ export interface Event {
     rsvps?: Rsvp[];
 }
 
-interface User {
+export interface User {
     id: number;
     name: string;
     email: string;
 }
 
-interface Rsvp {
+export interface Rsvp {
     id: number;
     name: string;
     email: string;
